@@ -39,7 +39,22 @@ module.exports = function(app, db){
 		});
 	});
 
-	//Deleta uma categoria com base em seu id
+	//Altera os dados de uma categoria existente
+	app.put('/categorias/:id', (req, res) => {
+
+		let categoria = req.body;
+		let sqlQuery = 'UPDATE categorias SET nome = ? WHERE id = ?';
+
+		db.query(sqlQuery,[categoria.nome, req.params.id], (err, rows, fields) => {
+			if(err){
+				console.log(err);
+			}else{
+				res.send('Atualizado com sucesso.');
+			}
+		});
+	});
+
+	//Deleta uma categoria existente
 	app.delete('/categorias/:id', (req, res) => {
 
 		db.query('DELETE FROM categorias WHERE id = ?',[req.params.id], (err, rows, fields) => {

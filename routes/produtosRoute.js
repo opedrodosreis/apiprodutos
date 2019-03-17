@@ -39,7 +39,22 @@ module.exports = function(app, db){
 		});
 	});
 
-	//Deleta um produto com base em seu id
+	//Altera os dados de um produto existente
+	app.put('/produtos/:id', (req, res) => {
+
+		let produto = req.body;
+		let sqlQuery = 'UPDATE produtos SET nome = ?, descricao = ?, valor = ?, idCategoria = ? WHERE id = ?';
+
+		db.query(sqlQuery,[produto.nome, produto.descricao, produto.valor, produto.idCategoria, req.params.id], (err, rows, fields) => {
+			if(err){
+				console.log(err);
+			}else{
+				res.send('Atualizado com sucesso.');
+			}
+		});
+	});
+
+	//Deleta um produto existente
 	app.delete('/produtos/:id', (req, res) => {
 
 		db.query('DELETE FROM produtos WHERE id = ?',[req.params.id], (err, rows, fields) => {
