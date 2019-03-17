@@ -28,9 +28,9 @@ module.exports = function(app, db){
 	app.post('/categorias', (req, res) => {
 
 		let categoria = req.body;
-		let sqlQuery = 'INSERT INTO categorias (nome) VALUES (?)';
+		let sqlQuery = 'INSERT INTO categorias (nome, juros_mensais) VALUES (?, ?)';
 
-		db.query(sqlQuery,[categoria.nome], (err, rows, fields) => {
+		db.query(sqlQuery,[categoria.nome, categoria.juros_mensais], (err, rows, fields) => {
 			if(err){
 				console.log(err);
 			}else{
@@ -43,9 +43,9 @@ module.exports = function(app, db){
 	app.put('/categorias/:id', (req, res) => {
 
 		let categoria = req.body;
-		let sqlQuery = 'UPDATE categorias SET nome = ? WHERE id = ?';
+		let sqlQuery = 'UPDATE categorias SET nome = ?, juros_mensais = ? WHERE id = ?';
 
-		db.query(sqlQuery,[categoria.nome, req.params.id], (err, rows, fields) => {
+		db.query(sqlQuery,[categoria.nome, categoria.juros_mensais,req.params.id], (err, rows, fields) => {
 			if(err){
 				console.log(err);
 			}else{

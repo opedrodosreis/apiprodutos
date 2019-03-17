@@ -22,6 +22,7 @@ mysqlConnection.connect((err) => {
 
 require('./routes/produtosRoute')(app, mysqlConnection);
 require('./routes/categoriasRoute')(app, mysqlConnection);
+require('./routes/calculaParcela')(app, mysqlConnection);
 
 app.listen(8077, () => {
 	console.log('Express server is running at port: 8077');
