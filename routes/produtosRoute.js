@@ -34,7 +34,7 @@ module.exports = function(app, db){
 			if(err){
 				console.log(err);
 			}else{
-				res.send(rows);
+				res.send('Cadastrado com sucesso.');
 			}
 		});
 	});
@@ -43,15 +43,187 @@ module.exports = function(app, db){
 	app.put('/produtos/:id', (req, res) => {
 
 		let produto = req.body;
-		let sqlQuery = 'UPDATE produtos SET nome = ?, descricao = ?, valor = ?, idCategoria = ? WHERE id = ?';
 
-		db.query(sqlQuery,[produto.nome, produto.descricao, produto.valor, produto.idCategoria, req.params.id], (err, rows, fields) => {
-			if(err){
-				console.log(err);
-			}else{
-				res.send('Atualizado com sucesso.');
-			}
-		});
+		if(produto.nome != null && produto.descricao != null && produto.valor != null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, descricao = ?, valor = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.descricao, produto.valor, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao != null && produto.valor != null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, descricao = ?, valor = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.descricao, produto.valor, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao != null && produto.valor == null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, descricao = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.descricao, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao == null && produto.valor != null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, valor = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.valor, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao != null && produto.valor != null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET descricao = ?, valor = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.descricao, produto.valor, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao != null && produto.valor == null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, descricao = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.descricao, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao == null && produto.valor != null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, valor = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.valor, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao == null && produto.valor == null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao != null && produto.valor != null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET descricao = ?, valor = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.descricao, produto.valor, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao != null && produto.valor == null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET descricao = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.descricao, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao == null && produto.valor != null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET valor = ?, idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.valor, produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome != null && produto.descricao == null && produto.valor == null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET nome = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.nome, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao != null && produto.valor == null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET descricao = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.descricao, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao == null && produto.valor != null && produto.idCategoria == null){
+
+			let sqlQuery = 'UPDATE produtos SET valor = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.valor, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(produto.nome == null && produto.descricao == null && produto.valor == null && produto.idCategoria != null){
+
+			let sqlQuery = 'UPDATE produtos SET idCategoria = ? WHERE id = ?';
+
+			db.query(sqlQuery,[produto.idCategoria, req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+		}
 	});
 
 	//Deleta um produto existente

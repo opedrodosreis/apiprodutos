@@ -1,5 +1,6 @@
 module.exports = function(app, db){
 
+	// Calcula o valor das parcelas dado o id do produto e o número de parcelas
 	app.get('/produtos/:id/:n', (req, res) => {
 
 		let pv;
@@ -29,10 +30,10 @@ module.exports = function(app, db){
 
 		function setJurosMensais(juros_mensais){
 			i = juros_mensais / 100;
-			setvalorParcela();
+			setValorParcela();
 		}
 
-		function setvalorParcela(){
+		function setValorParcela(){
 			n = req.params.n;
 			valorParcela = pv * i / (1 - Math.pow(1 + i, -n));
 			valorParcela = valorParcela.toFixed(2);

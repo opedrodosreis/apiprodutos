@@ -34,7 +34,7 @@ module.exports = function(app, db){
 			if(err){
 				console.log(err);
 			}else{
-				res.send(rows);
+				res.send('Cadastrado com sucesso.');
 			}
 		});
 	});
@@ -43,15 +43,43 @@ module.exports = function(app, db){
 	app.put('/categorias/:id', (req, res) => {
 
 		let categoria = req.body;
-		let sqlQuery = 'UPDATE categorias SET nome = ?, juros_mensais = ? WHERE id = ?';
 
-		db.query(sqlQuery,[categoria.nome, categoria.juros_mensais,req.params.id], (err, rows, fields) => {
-			if(err){
-				console.log(err);
-			}else{
-				res.send('Atualizado com sucesso.');
-			}
-		});
+		if(categoria.nome != null && categoria.juros_mensais != null){
+
+			let sqlQuery = 'UPDATE categorias SET nome = ?, juros_mensais = ? WHERE id = ?';
+
+			db.query(sqlQuery,[categoria.nome, categoria.juros_mensais,req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+
+		} else if(categoria.nome != null && categoria.juros_mensais == null){
+
+			let sqlQuery = 'UPDATE categorias SET nome = ? WHERE id = ?';
+
+			db.query(sqlQuery,[categoria.nome,req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+			
+		} else if(categoria.nome == null && categoria.juros_mensais != null){
+
+			let sqlQuery = 'UPDATE categorias SET juros_mensais = ? WHERE id = ?';
+
+			db.query(sqlQuery,[categoria.juros_mensais,req.params.id], (err, rows, fields) => {
+				if(err){
+					console.log(err);
+				}else{
+					res.send('Atualizado com sucesso.');
+				}
+			});
+		}
 	});
 
 	//Deleta uma categoria existente
